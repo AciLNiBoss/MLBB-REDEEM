@@ -2,199 +2,148 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>MLBB Skin Redeem</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>MLBB Naruto Skin Redeem</title>
   <style>
     body {
-      font-family: 'Poppins', sans-serif;
-      background: radial-gradient(circle at top, #0f2027, #203a43, #2c5364);
-      color: white;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #000000, #0f0f0f);
+      color: #00ffe0;
       margin: 0;
-      padding: 0;
-      min-height: 100vh;
+      height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;
     }
+
     .container {
-      background: rgba(255, 255, 255, 0.06);
-      padding: 35px;
-      border-radius: 20px;
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.37);
-      backdrop-filter: blur(15px);
-      width: 90%;
-      max-width: 400px;
+      background: #111;
+      border: 2px solid #00ffe0;
+      padding: 30px;
+      border-radius: 16px;
+      width: 360px;
+      box-shadow: 0 0 25px #00ffe0;
       text-align: center;
-      animation: fadeIn 1s ease forwards;
     }
-    h2 {
+
+    h2, h3 {
+      color: #00ffe0;
       margin-bottom: 20px;
-      font-weight: 600;
-      font-size: 24px;
     }
-    input {
+
+    input, select, button {
       width: 100%;
-      padding: 14px;
+      padding: 12px;
       margin: 10px 0;
-      border: none;
-      border-radius: 12px;
       font-size: 16px;
-      outline: none;
-      background: #ffffff10;
-      color: #fff;
+      border-radius: 6px;
+      border: none;
     }
+
+    input, select {
+      background: #1a1a1a;
+      color: #00ffe0;
+      border: 1px solid #00ffe0;
+    }
+
     button {
-      width: 100%;
-      padding: 14px;
-      background: #00ffc3;
+      background: linear-gradient(135deg, #00ffe0, #00bfff);
       color: #000;
-      border: none;
-      border-radius: 12px;
       font-weight: bold;
-      font-size: 16px;
       cursor: pointer;
-      margin-top: 10px;
-      transition: background 0.3s ease;
+      transition: transform 0.2s ease;
     }
+
     button:hover {
-      background: #00cc9f;
+      transform: scale(1.05);
     }
-    .note, #tiktokInstructions p {
-      font-size: 0.9em;
-      color: #ccc;
-      margin-top: 15px;
-    }
-    .skin-image {
-      width: 100%;
-      max-width: 250px;
-      margin: 20px auto;
-      border-radius: 12px;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.5);
-    }
+
     .hidden {
       display: none;
     }
-    #clickBtn {
-      margin-top: 15px;
-      background: #ff007f;
-      color: white;
+
+    #resultBox {
+      background: #1b1b1b;
+      padding: 20px;
+      border: 1px solid #00ffe0;
+      border-radius: 10px;
+      margin-top: 10px;
+      color: #00ffe0;
     }
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
+
+    strong {
+      color: #ffffff;
     }
   </style>
 </head>
 <body>
 
-  <!-- Input Form -->
-  <div class="container" id="formCard">
-    <h2>MLBB Skin Redeem</h2>
-    <input type="text" id="playerId" placeholder="Enter Player ID" />
-    <input type="text" id="zoneId" placeholder="Enter Zone ID" />
-    <button onclick="generateCode()">Get Random Skin</button>
-  </div>
-
-  <!-- Result Display -->
-  <div class="container hidden" id="resultCard">
-    <h2>Congratulations!</h2>
-    <img id="skinImage" class="skin-image" src="" alt="Skin Image">
-    <p id="codeGiven">Redeem Code: -</p>
-    <p id="playerInfo">Player ID: -</p>
-
-    <div id="tiktokInstructions">
-      <p>To continue, please:</p>
-      <ol style="text-align: left; font-size: 14px; color: #ddd;">
-        <li>Follow our TikTok account</li>
-        <li>Watch our latest TikTok video</li>
-        <li>Comment and share the video</li>
-      </ol>
-      <a href="https://www.tiktok.com/@phanhaha7" target="_blank" style="color:#00ffc3; text-decoration: underline;">Go to TikTok</a>
-      <br><br>
-      <label style="display:block; margin-top:10px;">
-        <input type="checkbox" id="confirmFollowWatchCommentShare" /> I have followed, watched, commented, and shared
-      </label>
-      <button onclick="confirmAction()" id="confirmBtn" style="margin-top:15px;">Continue</button>
+  <div class="container">
+    <div id="formPage">
+      <h2>MLBB Naruto Skin Redeem</h2>
+      <form id="redeemForm">
+        <input type="text" id="username" placeholder="Enter your MLBB Username" required />
+        <input type="text" id="mlbbId" placeholder="Enter your MLBB ID" required />
+        <input type="text" id="zoneId" placeholder="Enter your Zone ID" required />
+        <select id="skinSelect" required>
+          <option value="" disabled selected>Select Your Skin</option>
+          <option>Lukas - Naruto Uzumaki</option>
+          <option>Kalea - Sakura</option>
+          <option>Hayabusa - Kakashi</option>
+          <option>Suyou - Sasuke</option>
+          <option>Ling - Neobeast</option>
+        </select>
+        <button type="submit">Get Redeem Code</button>
+      </form>
     </div>
 
-    <p class="note">You will be redirected shortly after completing the task.</p>
+    <div id="resultPage" class="hidden">
+      <div id="resultBox">
+        <h3>Congratulations!</h3>
+        <p>Username: <strong id="displayUsername"></strong></p>
+        <p>Selected Skin: <strong id="skinName"></strong></p>
+        <p>Your Redeem Code: <strong id="codeResult"></strong></p>
+        <p>You'll be redirected to Telegram now...</p>
+      </div>
+    </div>
   </div>
 
   <script>
-    const codes = {
-      "gaksnk290": {
-        name: "Lukas - Naruto Uzumaki",
-        image: "https://images.openai.com/thumbnails/2fa317ecc287d7b8284e91ce99b05f5a.jpeg" // Gambar Naruto
-      },
-      "haklwol20": {
-        name: "Suyou - Sasuke Uchiha",
-        image: "https://images.openai.com/thumbnails/46625248714ed88dfc94ec6ccfe4c269.jpeg" // Gambar Sasuke
-      },
-      "jsksks82p1": {
-        name: "Kalea - Sakura Haruno",
-        image: "https://images.openai.com/thumbnails/bccc20f5f2bc141636baf4049db79f1d.jpeg" // Gambar Sakura
-      },
-      "jsksom2992": {
-        name: "Hayabusa - Kakashi Hatake",
-        image: "https://images.openai.com/thumbnails/a634ed8b52b3b42ae0fee81d7f83d573.jpeg" // Gambar Kakashi
-      }
-    };
+    const form = document.getElementById("redeemForm");
+    const formPage = document.getElementById("formPage");
+    const resultPage = document.getElementById("resultPage");
 
-    const telegramUsername = "Moonton027";
-    const websiteURL = "https://www.tiktok.com/@phanhaha7";
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
 
-    function getRandomCode() {
-      const keys = Object.keys(codes);
-      return keys[Math.floor(Math.random() * keys.length)];
-    }
-
-    function generateCode() {
-      const playerId = document.getElementById("playerId").value.trim();
+      const username = document.getElementById("username").value.trim();
+      const mlbbId = document.getElementById("mlbbId").value.trim();
       const zoneId = document.getElementById("zoneId").value.trim();
+      const skin = document.getElementById("skinSelect").value;
 
-      if (!playerId || !zoneId) {
-        alert("Please enter both Player ID and Zone ID.");
+      if (!username || !mlbbId || !zoneId || !skin) {
+        alert("Please complete all fields.");
         return;
       }
 
-      const code = getRandomCode();
-      const skinData = codes[code];
+      const redeemCode = "MLBB-" + Math.random().toString(36).substr(2, 6).toUpperCase();
 
-      document.getElementById("formCard").classList.add("hidden");
-      document.getElementById("resultCard").classList.remove("hidden");
-      document.getElementById("skinImage").src = skinData.image;
-      document.getElementById("codeGiven").innerText = `Redeem Code: ${code}`;
-      document.getElementById("playerInfo").innerText = `Player ID: ${playerId} (${zoneId})`;
-    }
+      document.getElementById("displayUsername").textContent = `${username} (ID: ${mlbbId}/${zoneId})`;
+      document.getElementById("skinName").textContent = skin;
+      document.getElementById("codeResult").textContent = redeemCode;
 
-    function confirmAction() {
-      const confirmed = document.getElementById("confirmFollowWatchCommentShare").checked;
+      formPage.classList.add("hidden");
+      resultPage.classList.remove("hidden");
+      
+      const message = encodeURIComponent(
+        `MLBB Redeem Request:\nUsername: ${username}\nID: ${mlbbId}\nZone: ${zoneId}\nSkin: ${skin}\nCode: ${redeemCode}\nHello admin, I just redeemed MLBB skin`
+      );
 
-      if (!confirmed) {
-        alert("Please confirm that you have followed, watched, commented, and shared the post.");
-        return;
-      }
-
-      document.getElementById("tiktokInstructions").innerHTML = "<p>Thank you! You’ll be redirected shortly...</p>";
-
-      const playerId = document.getElementById("playerId").value.trim();
-      const zoneId = document.getElementById("zoneId").value.trim();
-      const code = document.getElementById("codeGiven").innerText.split(": ")[1];
-
-      // Redirect to Telegram
       setTimeout(() => {
-        const message = encodeURIComponent(`Hello admin, I just redeemed MLBB skin with code please process my skin : \nCode Redeem : ${code}\nID : ${playerId} & ${zoneId} `);
-        window.location.href = `https://t.me/${telegramUsername}?text=${message}`;
+        window.location.href = `tg://resolve?domain=Moonton027&text=${message}`;
       }, 3000);
-
-      // Redirect to TikTok/Website
-      setTimeout(() => {
-        const finalURL = `${websiteURL}?code=${code}&id=${playerId}&zone=${zoneId}`;
-        window.location.href = finalURL;
-      }, 8000);
-    }
+    });
   </script>
 
 </body>
-  </html>
+</html>
